@@ -11,7 +11,6 @@ import java.util.Map;
 public class IndexController {
     @Autowired
     NoteRepository noteRepository;
-
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getAll( Map<String, Object> model) {
         // log.info("Sending request to get all reports");
