@@ -1,4 +1,4 @@
-package com.mars.atlas;
+package com.mars.atlas.web;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

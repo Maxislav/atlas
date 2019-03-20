@@ -1,4 +1,4 @@
-package com.mars.atlas;
+package com.mars.atlas.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
