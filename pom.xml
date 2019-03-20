@@ -10,8 +10,9 @@
     <version>0.0.1-SNAPSHOT</version>
     <modules>
         <module>atlas-web</module>
-        <module>atlas-jpa</module>
+        <!--<module>atlas-jpa</module>-->
         <module>atlas-socket</module>
+        <module>atlas-mysql</module>
     </modules>
 
     <parent>
