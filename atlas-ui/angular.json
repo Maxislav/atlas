@@ -24,10 +24,12 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/libs"
             ],
             "styles": [
-              "src/styles.less"
+              "src/assets/style/styles.less",
+
             ],
             "scripts": [],
             "es5BrowserSupport": true
