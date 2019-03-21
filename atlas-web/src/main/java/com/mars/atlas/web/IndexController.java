@@ -1,6 +1,7 @@
 package com.mars.atlas.web;
 //import com.mars.atlas.jpa.NoteRepository;
 
+import com.mars.atlas.mysql.ApiInterface;
 import com.mars.atlas.mysql.NoteRepository;
 import com.mars.atlas.mysql.User;
 import com.mars.atlas.service.MySocketService;
@@ -35,6 +36,9 @@ public class IndexController {
     @Autowired
     MySocketService mySocketService;
 
+    @Autowired
+    ApiInterface apiInterface;
+
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getAll(Map<String, Object> model) {
@@ -53,6 +57,8 @@ public class IndexController {
                 return user;
             }
         }));
+
+        userList = apiInterface.getUsers();
 
        /* SqlParameterSource paramSource = new MapSqlParameterSource().addValue("user", "FIO");
         return getNamedParameterJdbcTemplate().query("select where user = :user", paramSource,  new ClientNegotiationMapper());*/
