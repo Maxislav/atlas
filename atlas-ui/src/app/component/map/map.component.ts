@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnInit, TemplateRef } from '@angular/core';
-import '../../../libs/mapbox-gl.css';
 import * as mapboxgl from '../../../libs/mapbox-gl.js';
+
+
+
 
 @Component({
   selector: 'app-map',
@@ -23,12 +25,13 @@ export class MapComponent implements OnInit, AfterViewInit {
     mapboxgl.accessToken = 'pk.eyJ1IjoibWF4aXNsYXYiLCJhIjoiY2lxbmlsNW9xMDAzNmh4bms4MGQ1enpvbiJ9.SvLPN0ZMYdq1FFMn7djryA';
     this.ngZone.runOutsideAngular(() => {
       const { Map } =  mapboxgl;
-      new Map({
+      const map =  new Map({
         container:  this.el.nativeElement, // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
         center: [-74.50, 40], // starting position [lng, lat]
         zoom: 9 // starting zoom
       });
+      map.addControl(new mapboxgl.NavigationControl());
     });
   }
 

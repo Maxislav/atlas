@@ -17,19 +17,19 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/atlas-ui",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
+            "deployUrl": "",
             "assets": [
               "src/favicon.ico",
               "src/assets",
               "src/libs"
             ],
             "styles": [
-              "src/assets/style/styles.less",
-
+              "src/assets/style/styles.less"
             ],
             "scripts": [],
             "es5BrowserSupport": true
@@ -43,7 +43,7 @@
                 }
               ],
               "optimization": true,
-              "outputHashing": "all",
+              "outputHashing": "none",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
