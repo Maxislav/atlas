@@ -1,0 +1,31 @@
+:host{
+  height: 100%;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  &>div{
+
+  }
+}
+.menu{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 5;
+}
+.ico{
+  display: none;
+  background: url("../../../../../assets/img/ico-router.png") no-repeat center;
+  background-size: 100%;
+  width: 30px;
+  height: 30px;
+}
+@media screen and (max-width: 450px){
+  .ico{
+    display: block;
+  }
+  .txt{
+    display: none;
+  }
+}

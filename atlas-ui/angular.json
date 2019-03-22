@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "atlas-ui": {
-      "root": "",
+      "root": "src",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
@@ -23,15 +23,16 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
             "deployUrl": "",
+            "resourcesOutputPath":"resources",
             "assets": [
-              "src/favicon.ico",
               "src/assets",
               "src/libs"
             ],
             "styles": [
-              "src/assets/style/styles.less"
+              "src/style/styles.less"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

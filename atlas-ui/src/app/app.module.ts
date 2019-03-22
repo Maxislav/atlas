@@ -9,6 +9,9 @@ import { MapComponent } from './component/map/map.component';
 import { AuthComponent } from './component/auth/auth.component';
 import { SocketModule } from 'src/app/modules/socket/socket.module';
 import { SocketService } from 'src/app/modules/socket/socket.service';
+import { MenuLeftComponent } from './component/header/menu-left/menu-left.component';
+import { MenuRightComponent } from './component/header/menu-right/menu-right.component';
+import { OnAirComponent } from './component/header/menu-left/on-air/on-air.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { SocketService } from 'src/app/modules/socket/socket.service';
     HeaderComponent,
     MainContentComponent,
     MapComponent,
-    AuthComponent
+    AuthComponent,
+    MenuLeftComponent,
+    MenuRightComponent,
+    OnAirComponent
   ],
   imports: [
     BrowserModule,

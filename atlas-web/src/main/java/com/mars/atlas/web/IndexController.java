@@ -2,19 +2,16 @@ package com.mars.atlas.web;
 //import com.mars.atlas.jpa.NoteRepository;
 
 import com.mars.atlas.mysql.ApiInterface;
-import com.mars.atlas.mysql.NoteRepository;
 import com.mars.atlas.mysql.User;
 import com.mars.atlas.service.MySocketService;
+import com.mars.atlas.mysql.TestService2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.RowMapperResultSetExtractor;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import com.mars.atlas.mysql.TestService2;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
