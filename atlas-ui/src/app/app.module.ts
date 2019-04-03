@@ -15,6 +15,8 @@ import { OnAirComponent } from './component/header/menu-left/on-air/on-air.compo
 import { LocalStorageModule } from 'src/app/modules/local-storage/local-storage.module';
 import { RoutesComponent } from './component/header/menu-left/routes/routes.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserService } from 'src/app/service/user.service';
+import { ApiModule } from 'src/app/modules/api/api.module';
 
 @NgModule({
   declarations: [
@@ -33,15 +35,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     AppRoutingModule,
     SocketModule,
-    LocalStorageModule
+    LocalStorageModule,
+    ApiModule
   ],
   entryComponents: [AppComponent],
-  providers: [],
+  providers: [
+    UserService
+  ],
   // bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(socketService: SocketService) {
-    socketService.init();
+  constructor(private userService: UserService) {
+    // socketService.init();
+    userService.defineUser();
   }
 
   ngDoBootstrap(appRef: ApplicationRef) {

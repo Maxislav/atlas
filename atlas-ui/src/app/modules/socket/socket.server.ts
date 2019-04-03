@@ -36,8 +36,9 @@ export class SocketServer extends XZ {
       delete this.deferredHash[hash];
     });
 
-    this.emit(eName, Object.assign(obj, {hash}));
+    this.emit(eName, Object.assign(obj || {}, {hash}));
     return this.deferredHash[hash].deferred.promise;
+
   }
 
   private getHash() {
