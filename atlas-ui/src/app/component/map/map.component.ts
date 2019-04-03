@@ -1,5 +1,8 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnInit, TemplateRef } from '@angular/core';
-import * as mapboxgl from '../../../libs/mapbox-gl.js';
+import * as MAPBOXGL from '../../../libs/mapbox-gl.js';
+import { LocalStorage, LocalStorageService } from 'src/app/modules/local-storage/local-storage.service';
+import * as mapboxgl from 'mapbox-gl';
+// import * as mapboxgl from 'mapbox-gl';
 
 @Component({
   selector: 'app-map',
@@ -8,8 +11,11 @@ import * as mapboxgl from '../../../libs/mapbox-gl.js';
 })
 export class MapComponent implements OnInit, AfterViewInit {
 
-  constructor(private el: ElementRef,  private ngZone: NgZone) {
-    console.log(el);
+  private mapboxLs: LocalStorage;
+  private mapCenter: {center: {lng: number, lat: number}, zoom: number};
+
+  constructor(private el: ElementRef, private ngZone: NgZone, private localStorageService: LocalStorageService) {
+    this.mapboxLs = localStorageService.create('mapbox');
   }
 
   ngOnInit() {
@@ -19,17 +25,25 @@ export class MapComponent implements OnInit, AfterViewInit {
 
     console.log('rendered');
     this.el.nativeElement.innerHTML = '';
-    mapboxgl.accessToken = 'pk.eyJ1IjoibWF4aXNsYXYiLCJhIjoiY2lxbmlsNW9xMDAzNmh4bms4MGQ1enpvbiJ9.SvLPN0ZMYdq1FFMn7djryA';
+    this.mapCenter = Object.assign({center:  [-74.50, 40], zoom: 9}, this.mapboxLs.getItem('map-center'));
+
+
+    MAPBOXGL.accessToken = 'pk.eyJ1IjoibWF4aXNsYXYiLCJhIjoiY2lxbmlsNW9xMDAzNmh4bms4MGQ1enpvbiJ9.SvLPN0ZMYdq1FFMn7djryA';
     this.ngZone.runOutsideAngular(() => {
-      const { Map } =  mapboxgl;
-      const map =  new Map({
-        container:  this.el.nativeElement, // container id
+      const {Map} = MAPBOXGL;
+      const map: mapboxgl.Map = new Map({
+        container: this.el.nativeElement, // container id
         style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-        center: [-74.50, 40], // starting position [lng, lat]
-        zoom: 9 // starting zoom
+        center: this.mapCenter.center , // starting position [lng, lat]
+        zoom: this.mapCenter.zoom // starting zoom
       });
-      map.addControl(new mapboxgl.NavigationControl());
+      map.addControl(new MAPBOXGL.NavigationControl());
+      map.on('moveend', (e) => {
+        this.mapboxLs.setItem('map-center', {
+          center: map.getCenter(),
+          zoom: map.getZoom()
+        });
+      });
     });
   }
-
 }

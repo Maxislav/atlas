@@ -23,6 +23,7 @@
     "@angular/router": "~7.2.0",
     "@types/javascript-state-machine": "^2.4.1",
     "@types/promise": "^7.1.30",
+    "@types/mapbox-gl": "^0.51.4",
     "@types/socket.io": "^2.1.2",
     "core-js": "^2.5.4",
     "rxjs": "~6.3.3",
@@ -36,6 +37,7 @@
     "@angular/language-service": "7.2.10",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
+
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",

@@ -1,0 +1,15 @@
+<div>
+  <div class="txt">
+    Routes
+  </div>
+  <div class="ico">
+
+  </div>
+  <div class="menu" *ngIf="isMenuShow" @ngIfAnimation=''>
+    <ul>
+      <li *ngFor="let menuItem of menuList">
+        {{menuItem.name}}
+      </li>
+    </ul>
+  </div>
+</div>

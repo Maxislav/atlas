@@ -1,5 +1,5 @@
 import { Deferred } from 'src/app/utils/deferred';
-import * as io from '../../../libs/socket.io.js';
+import * as SocketIO from '../../../libs/socket.io.js';
 
 class XZ {
   constructor(c) {
@@ -14,7 +14,7 @@ export class SocketServer extends XZ {
   private readonly eNameListener: { [key: string]: any };
 
   constructor(host) {
-    super(io.connect(host));
+    super(SocketIO.connect(host));
     this.deferredHash = {};
     this.eNameListener = {};
   }

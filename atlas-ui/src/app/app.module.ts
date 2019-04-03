@@ -12,6 +12,9 @@ import { SocketService } from 'src/app/modules/socket/socket.service';
 import { MenuLeftComponent } from './component/header/menu-left/menu-left.component';
 import { MenuRightComponent } from './component/header/menu-right/menu-right.component';
 import { OnAirComponent } from './component/header/menu-left/on-air/on-air.component';
+import { LocalStorageModule } from 'src/app/modules/local-storage/local-storage.module';
+import { RoutesComponent } from './component/header/menu-left/routes/routes.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,12 +25,15 @@ import { OnAirComponent } from './component/header/menu-left/on-air/on-air.compo
     AuthComponent,
     MenuLeftComponent,
     MenuRightComponent,
-    OnAirComponent
+    OnAirComponent,
+    RoutesComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
-    SocketModule
+    SocketModule,
+    LocalStorageModule
   ],
   entryComponents: [AppComponent],
   providers: [],
