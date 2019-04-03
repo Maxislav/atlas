@@ -35,7 +35,7 @@ import { OnAirComponent } from './component/header/menu-left/on-air/on-air.compo
 })
 export class AppModule {
   constructor(socketService: SocketService) {
-
+    socketService.init();
   }
 
   ngDoBootstrap(appRef: ApplicationRef) {

@@ -1,9 +1,6 @@
 import { AfterViewInit, Component, ElementRef, NgZone, OnInit, TemplateRef } from '@angular/core';
 import * as mapboxgl from '../../../libs/mapbox-gl.js';
 
-
-
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
