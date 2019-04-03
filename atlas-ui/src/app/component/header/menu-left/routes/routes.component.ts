@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { ngIfAnimation } from 'src/app/animation/animation';
 
 @Component({
@@ -21,19 +21,32 @@ export class RoutesComponent implements OnInit {
     }
   ];
 
-  constructor() {
+  constructor(private el: ElementRef) {
     this.isMenuShow = false;
   }
 
   @HostListener('click', ['$event'])
   onClick(e) {
     this.isMenuShow = true;
-    e.stopPropagation();
+    // e.stopPropagation();
   }
-  @HostListener('document:click')
-  clickOut() {
-    this.isMenuShow = false;
+
+  @HostListener('document:click', ['$event'])
+  clickOut(e) {
+    if (!this.isClickIn(e.target)) {
+      this.isMenuShow = false;
+    }
   }
+
   ngOnInit() {
+  }
+
+  private isClickIn(target) {
+    if (target === this.el.nativeElement) {
+      return true;
+    } else if (target.parentNode) {
+      return this.isClickIn(target.parentNode);
+    }
+    return false;
   }
 }

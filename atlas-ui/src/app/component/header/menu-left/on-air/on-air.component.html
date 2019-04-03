@@ -5,7 +5,11 @@
   <div class="ico">
 
   </div>
-  <div class="menu" *ngIf="isMenuShow">
-    Menu
+  <div class="menu" *ngIf="isMenuShow" @ngIfAnimation=''>
+    <ul>
+      <li *ngFor="let user of userList">
+        {{user.name}}
+      </li>
+    </ul>
   </div>
 </div>
