@@ -6,8 +6,13 @@ import { SocketService } from 'src/app/modules/socket/socket.service';
 })
 export class ApiService {
 
-  constructor(private socketService: SocketService) {
 
+
+  constructor(private socketService: SocketService) {
+    socketService.init();
+    socketService.socketConnectionObservable.subscribe((eName) => {
+      console.log(eName);
+    });
   }
 
   public getUser() {

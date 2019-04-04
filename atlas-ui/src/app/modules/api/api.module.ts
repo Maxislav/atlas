@@ -16,6 +16,6 @@ import { ApiService } from 'src/app/modules/api/api.service';
 })
 export class ApiModule {
   constructor(private socketService: SocketService) {
-    socketService.init();
+    // socketService.init();
   }
 }

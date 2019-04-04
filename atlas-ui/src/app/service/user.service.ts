@@ -30,4 +30,7 @@ export class UserService {
       });
   }
 
+  onConnect() {
+
+  }
 }

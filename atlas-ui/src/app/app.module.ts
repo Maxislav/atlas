@@ -34,7 +34,7 @@ import { ApiModule } from 'src/app/modules/api/api.module';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    SocketModule,
+    // SocketModule,
     LocalStorageModule,
     ApiModule
   ],
