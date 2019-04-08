@@ -32,7 +32,7 @@ export class SocketServer extends XZ {
     this.eNameListener[eName] = this.eNameListener[eName] || this.on(eName, (data) => {
       const timeoutId = this.deferredHash[data.hash].timeoutId;
       clearTimeout(timeoutId);
-      this.deferredHash[data.hash].deferred.resolve(data);
+      this.deferredHash[data.hash].deferred.resolve(data.data);
       delete this.deferredHash[hash];
     });
 

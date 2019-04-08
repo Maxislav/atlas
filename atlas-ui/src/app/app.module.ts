@@ -17,6 +17,7 @@ import { RoutesComponent } from './component/header/menu-left/routes/routes.comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from 'src/app/service/user.service';
 import { ApiModule } from 'src/app/modules/api/api.module';
+import { MapboxDirective } from 'src/app/component/map/map.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ApiModule } from 'src/app/modules/api/api.module';
     MenuLeftComponent,
     MenuRightComponent,
     OnAirComponent,
-    RoutesComponent
+    RoutesComponent,
+    MapboxDirective
   ],
   imports: [
     BrowserModule,

@@ -16,14 +16,17 @@ const routes: Routes = [
     children: [
       {
         path: 'map',
-        component: MapComponent
+        component: MapComponent,
+        children: [
+
+        ]
       }
     ]
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{useHash: true})],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

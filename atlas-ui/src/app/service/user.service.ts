@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/modules/api/api.service';
+import { CONNECTION } from 'src/app/modules/socket/socket.service';
 
 interface User {
   id: number;
@@ -23,11 +24,21 @@ export class UserService {
   }
 
   defineUser() {
-    this.apiService.getUser()
-      .then(data => {
-        console.log(data);
-        this.user.name = data.name;
-      });
+
+    this.apiService.socketConnectionObservable.subscribe((connection: CONNECTION) => {
+      if (connection === CONNECTION.CONNECT) {
+        this.apiService.getUser()
+          .then(data => {
+            console.log(data);
+            this.user.name = data.name;
+          });
+      }
+    });
+    /* this.apiService.getUser()
+       .then(data => {
+         console.log(data);
+         this.user.name = data.name;
+       });*/
   }
 
   onConnect() {

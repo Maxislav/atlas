@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SocketService } from 'src/app/modules/socket/socket.service';
+import { CONNECTION, SocketService } from 'src/app/modules/socket/socket.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,21 @@ import { SocketService } from 'src/app/modules/socket/socket.service';
 export class ApiService {
 
 
+  public isOnline: CONNECTION;
+  public socketConnectionObservable: Observable<CONNECTION>;
 
   constructor(private socketService: SocketService) {
     socketService.init();
-    socketService.socketConnectionObservable.subscribe((eName) => {
-      console.log(eName);
+    socketService.socketConnectionObservable.subscribe((con: CONNECTION) => {
+      this.isOnline = con;
     });
+
+    this.socketConnectionObservable = socketService.socketConnectionObservable;
+  }
+
+
+  init() {
+
   }
 
   public getUser() {
