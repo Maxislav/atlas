@@ -18,6 +18,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserService } from 'src/app/service/user.service';
 import { ApiModule } from 'src/app/modules/api/api.module';
 import { MapboxDirective } from 'src/app/component/map/map.component';
+import { UserComponent } from './component/header/menu-right/user/user.component';
+import { EnterMenuComponent } from './component/header/menu-right/user/enter-menu/enter-menu.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MapboxDirective } from 'src/app/component/map/map.component';
     MenuRightComponent,
     OnAirComponent,
     RoutesComponent,
-    MapboxDirective
+    MapboxDirective,
+    UserComponent,
+    EnterMenuComponent
   ],
   imports: [
     BrowserModule,
