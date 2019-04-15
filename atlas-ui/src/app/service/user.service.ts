@@ -26,9 +26,9 @@ export class UserService {
   defineUser() {
     this.apiService.socketConnectionObservable.subscribe((connection: CONNECTION) => {
       if (connection === CONNECTION.CONNECT) {
-        this.apiService.getUser()
+        this.apiService.onAuth()
           .then(data => {
-            console.log(data);
+            // console.log(data);
             this.user.name = data.name;
           });
       }

@@ -28,4 +28,8 @@ export class ApiService {
   public getUser() {
     return this.socketService.$get('getUser', null);
   }
+
+  public onAuth() {
+    return this.socketService.$get('onAuth', null);
+  }
 }

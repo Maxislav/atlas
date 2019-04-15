@@ -30,10 +30,17 @@ export class SocketServer extends XZ {
       deferred: new Deferred()
     };
     this.eNameListener[eName] = this.eNameListener[eName] || this.on(eName, (data) => {
-      const timeoutId = this.deferredHash[data.hash].timeoutId;
-      clearTimeout(timeoutId);
-      this.deferredHash[data.hash].deferred.resolve(data.data);
-      delete this.deferredHash[hash];
+      console.log(eName, '->', data);
+      if (this.deferredHash[data.hash]) {
+        const timeoutId = this.deferredHash[data.hash].timeoutId;
+        clearTimeout(timeoutId);
+        this.deferredHash[data.hash].deferred.resolve(data.data);
+        delete this.deferredHash[hash];
+      } else {
+        console.warn(eName, data);
+      }
+
+
     });
 
     this.emit(eName, Object.assign(obj || {}, {hash}));
