@@ -2,16 +2,18 @@ package com.mars.atlas.service;
 import com.corundumstudio.socketio.listener.*;
 import com.corundumstudio.socketio.*;
 import com.mars.atlas.service.event.OnAuth;
-import com.mars.atlas.service.event.OnAuthData;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
+import javax.annotation.PostConstruct;
 import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.UUID;
@@ -22,10 +24,13 @@ public class MySocketService implements ConnectListener, DisconnectListener{
     // private Environment env;
     private static final Logger logger = LoggerFactory.getLogger(MySocketService.class);
     private final PrintStream printStream =  System.out;
+
+    @Autowired
     SocketIOServer server;
+
     public MySocketService(@Autowired Environment env){
         // ConfigurableEnvironment environment = applicationContext.getEnvironment();
-        String socketPort = env.getProperty("socket.port");
+       /* String socketPort = env.getProperty("socket.port");
         Configuration config = new Configuration();
         config.setHostname("localhost");
         config.setPort(Integer.parseInt(socketPort));
@@ -36,9 +41,13 @@ public class MySocketService implements ConnectListener, DisconnectListener{
         server.addDisconnectListener(this);
         String s = String.format("<==== Socket started port: %s ====>",socketPort);
         System.out.println(s);
-        socketIOServerHashMap = new HashMap<>();
+        socketIOServerHashMap = new HashMap<>();*/
 
-        server.addEventListener("onAuth", OnAuthData.class, new OnAuthData());
+
+        //server.addEventListener("onAuth", OnAuthData.class, new OnAuthData());
+
+
+        //server.addEventListener("onAuth", OnAuthData.class, new OnAuthData());
       /*  server.addEventListener("onAuth", OnAuthData.class, new DataListener<OnAuthData>() {
             @Override
             public void onData(SocketIOClient client, OnAuthData data, AckRequest ackSender) throws Exception {
@@ -61,6 +70,12 @@ public class MySocketService implements ConnectListener, DisconnectListener{
                 socketUser.send("getUser");
             }
         });*/
+    }
+
+    @PostConstruct
+    public void init(){
+        new OnAuth(server);
+        // private static final Log logger = LogFactory.getLog();
     }
 
     @Override
