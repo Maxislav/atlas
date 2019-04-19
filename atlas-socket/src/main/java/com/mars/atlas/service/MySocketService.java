@@ -27,8 +27,8 @@ public class MySocketService implements ConnectListener, DisconnectListener{
 
     @Autowired
     SocketIOServer server;
-
-    public MySocketService(@Autowired Environment env){
+    public MySocketService(){
+        socketIOServerHashMap = new HashMap<>();
         // ConfigurableEnvironment environment = applicationContext.getEnvironment();
        /* String socketPort = env.getProperty("socket.port");
         Configuration config = new Configuration();
@@ -74,7 +74,9 @@ public class MySocketService implements ConnectListener, DisconnectListener{
 
     @PostConstruct
     public void init(){
-        new OnAuth(server);
+        server.addConnectListener(this);
+        server.addDisconnectListener(this);
+       // new OnAuth(server);
         // private static final Log logger = LogFactory.getLog();
     }
 
