@@ -28,8 +28,8 @@ export class UserService {
       if (connection === CONNECTION.CONNECT) {
         this.apiService.onAuth()
           .then(data => {
-            // console.log(data);
-            this.user.name = data.name;
+             console.log(data.pubKey);
+            // this.user.name = data.name;
           });
       }
     });

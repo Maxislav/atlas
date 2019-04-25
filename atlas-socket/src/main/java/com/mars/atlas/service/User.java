@@ -3,7 +3,7 @@ package com.mars.atlas.service;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 
-public class User implements Hashing {
+public class User  {
     public SocketIOClient client;
     public SocketIOServer server;
     String hash;
@@ -12,7 +12,7 @@ public class User implements Hashing {
         this.client = client;
     }
 
-    @Override
+  /*  @Override
     public String getHash() {
         return this.hash;
     }
@@ -20,5 +20,5 @@ public class User implements Hashing {
     @Override
     public void setHash(String hash) {
         this.hash = hash;
-    }
+    }*/
 }

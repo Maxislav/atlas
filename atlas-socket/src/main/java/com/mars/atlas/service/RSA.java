@@ -29,48 +29,60 @@ package com.mars.atlas.service;
  *
  ******************************************************************************/
 
+import javax.crypto.Cipher;
 import java.math.BigInteger;
-import java.security.SecureRandom;
+import java.security.*;
 
 
 public class RSA {
 
-
-
-    private final static BigInteger one      = new BigInteger("1");
-    private final static SecureRandom random = new SecureRandom();
-
-    private BigInteger privateKey;
-    private BigInteger publicKey;
-    private BigInteger modulus;
+    public PublicKey pubKey;
+    PrivateKey privateKey;
 
     // generate an N-bit (roughly) public and private key
-    RSA(int N) {
-        BigInteger p = BigInteger.probablePrime(N/2, random);
-        BigInteger q = BigInteger.probablePrime(N/2, random);
-        BigInteger phi = (p.subtract(one)).multiply(q.subtract(one));
+    RSA() {
 
-        modulus    = p.multiply(q);
-        publicKey  = new BigInteger("65537");     // common value in practice = 2^16 + 1
-        privateKey = publicKey.modInverse(phi);
+        try {
+            KeyPair keyPair = buildKeyPair();
+            pubKey = keyPair.getPublic();
+            privateKey = keyPair.getPrivate();
+            byte [] signed = encrypt("This is a secret message");
+            System.out.println(new String(signed));
+            byte[] verified = decrypt(signed);
+            System.out.println(new String(verified));     // This is a secret message
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static KeyPair buildKeyPair() throws NoSuchAlgorithmException {
+        final int keySize = 2048;
+        SecureRandom secureRandomGenerator = SecureRandom.getInstance("SHA1PRNG");
+        byte[] randomBytes = new byte[128];
+        secureRandomGenerator.nextBytes(randomBytes);
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+        keyPairGenerator.initialize(keySize, secureRandomGenerator );
+        return keyPairGenerator.genKeyPair();
+    }
+
+    public byte[] encrypt(String message) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+
+        return cipher.doFinal(message.getBytes());
+    }
+
+    public byte[] decrypt(byte [] encrypted) throws Exception {
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, pubKey);
+        return cipher.doFinal(encrypted);
     }
 
 
-    BigInteger encrypt(BigInteger message) {
-        return message.modPow(publicKey, modulus);
-    }
-
-    BigInteger decrypt(BigInteger encrypted) {
-        return encrypted.modPow(privateKey, modulus);
-    }
-
-    public String toString() {
-        String s = "";
-        s += "public  = " + publicKey  + "\n";
-        s += "private = " + privateKey + "\n";
-        s += "modulus = " + modulus;
-        return s;
-    }
 
    /* public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);

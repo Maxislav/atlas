@@ -15,6 +15,8 @@ import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 import javax.annotation.PostConstruct;
 import java.io.PrintStream;
+import java.lang.ref.PhantomReference;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -27,8 +29,19 @@ public class MySocketService implements ConnectListener, DisconnectListener{
 
     @Autowired
     SocketIOServer server;
+
+
+    @Autowired
+    SocketHash socketHash;
+
+
     public MySocketService(){
         socketIOServerHashMap = new HashMap<>();
+        Oloe oloe = new Oloe();
+        RSA rsa = new RSA();
+
+
+
         // ConfigurableEnvironment environment = applicationContext.getEnvironment();
        /* String socketPort = env.getProperty("socket.port");
         Configuration config = new Configuration();
@@ -76,20 +89,18 @@ public class MySocketService implements ConnectListener, DisconnectListener{
     public void init(){
         server.addConnectListener(this);
         server.addDisconnectListener(this);
-       // new OnAuth(server);
-        // private static final Log logger = LogFactory.getLog();
     }
 
     @Override
     public void onConnect(SocketIOClient client) {
-        System.out.println(client.getSessionId());
-       // new OnAuth(server, client);
-        socketIOServerHashMap.put(client.getSessionId(), new SocketUser(client));
+        System.out.println("client connect -> id: " + client.getSessionId());
+        socketHash.put(client.getSessionId(), new RSA());
 
     }
 
     @Override
     public void onDisconnect(SocketIOClient client) {
-        socketIOServerHashMap.remove(client.getSessionId());
+       // socketIOServerHashMap.remove(client.getSessionId());
+        socketHash.remove(client.getSessionId());
     }
 }

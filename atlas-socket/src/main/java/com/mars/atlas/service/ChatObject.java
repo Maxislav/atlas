@@ -1,6 +1,6 @@
 package com.mars.atlas.service;
 
-public class ChatObject implements Hashing {
+public class ChatObject  {
 
     private String userName;
     private String message;
@@ -33,7 +33,7 @@ public class ChatObject implements Hashing {
     }
 
 
-    @Override
+    /*@Override
     public String getHash() {
         return this.hash;
     }
@@ -42,5 +42,5 @@ public class ChatObject implements Hashing {
     public void setHash(String hash) {
           this.hash = hash;
 
-    }
+    }*/
 }

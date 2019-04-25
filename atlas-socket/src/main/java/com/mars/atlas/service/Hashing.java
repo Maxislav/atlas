@@ -1,5 +1,11 @@
 package com.mars.atlas.service;
-public interface Hashing{
-    public String getHash();
-    public void setHash(String hash);
+public class Hashing{
+
+    String hash;
+    public String getHash(){
+        return  this.hash;
+    }
+    public void setHash(String hash){
+        this.hash = hash;
+    }
 }
