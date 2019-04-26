@@ -39,12 +39,15 @@ public class OnAuth {
                 byte[] encodedPublicKey = rsa.pubKey.getEncoded();
                 String b64PublicKey = Base64.getEncoder().encodeToString(encodedPublicKey);
 
+                String pubClientKey = data.pubKey;
+
+                String name = rsa.encrypt("OloeVera", pubClientKey);
 
                 String h = data.getHash();
                 JSONObject root = new JSONObject();
                 root.put("hash", h);
                 JSONObject d = new JSONObject();
-                d.put("name", "Oloevera");
+                d.put("name", name);
                 d.put("pubKey", b64PublicKey);
                 //d.put("socket_id", client.getSessionId());
                 root.put("data", d);
@@ -62,7 +65,6 @@ public class OnAuth {
 
 
      public static class MyData extends Hashing {
-
-
+         public String pubKey;
     }
 }

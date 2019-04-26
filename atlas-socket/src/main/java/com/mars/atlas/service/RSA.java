@@ -1,7 +1,6 @@
 package com.mars.atlas.service;
 
 
-
 /******************************************************************************
  *  Compilation:  javac RSA.java
  *  Execution:    java RSA N
@@ -29,13 +28,21 @@ package com.mars.atlas.service;
  *
  ******************************************************************************/
 
+
 import javax.crypto.Cipher;
+import java.lang.reflect.Array;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.interfaces.RSAPublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+import java.util.List;
 
 
 public class RSA {
 
+    private final static String ALGORITHM = "RSA";
     public PublicKey pubKey;
     PrivateKey privateKey;
 
@@ -46,9 +53,9 @@ public class RSA {
             KeyPair keyPair = buildKeyPair();
             pubKey = keyPair.getPublic();
             privateKey = keyPair.getPrivate();
-            byte [] signed = encrypt("This is a secret message");
+            byte[] signed = encrypt(privateKey, "This is a secret message");
             System.out.println(new String(signed));
-            byte[] verified = decrypt(signed);
+            byte[] verified = decrypt(pubKey, signed);
             System.out.println(new String(verified));     // This is a secret message
 
         } catch (NoSuchAlgorithmException e) {
@@ -65,21 +72,50 @@ public class RSA {
         byte[] randomBytes = new byte[128];
         secureRandomGenerator.nextBytes(randomBytes);
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-        keyPairGenerator.initialize(keySize, secureRandomGenerator );
+        keyPairGenerator.initialize(keySize, secureRandomGenerator);
         return keyPairGenerator.genKeyPair();
     }
 
-    public byte[] encrypt(String message) throws Exception {
+    public byte[] encrypt(PrivateKey privateKey, String message) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.ENCRYPT_MODE, privateKey);
 
         return cipher.doFinal(message.getBytes());
     }
 
-    public byte[] decrypt(byte [] encrypted) throws Exception {
+
+    public String encrypt(String text, String publicK) {
+        byte[] cipherText = null;
+
+        try {
+            PublicKey pubKey = getKey(publicK);
+            final Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+            cipherText = cipher.doFinal(text.getBytes());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Base64.getEncoder().encodeToString(cipherText).getBytes();
+        return new String(Base64.getEncoder().encodeToString(cipherText).getBytes());
+    }
+
+    public byte[] decrypt(PublicKey pubKey, byte[] encrypted) throws Exception {
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, pubKey);
         return cipher.doFinal(encrypted);
+    }
+
+
+    /**
+     * @param publicK
+     * @return
+     * @throws Exception
+     */
+    PublicKey getKey(String publicK) throws Exception {
+        byte[] byteKey = Base64.getDecoder().decode(publicK);
+        X509EncodedKeySpec X509publicKey = new X509EncodedKeySpec(byteKey);
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        return kf.generatePublic(X509publicKey);
     }
 
 
@@ -103,5 +139,20 @@ public class RSA {
         StdOut.println("encrypted = " + encrypt);
         StdOut.println("decrypted = " + decrypt);
     }*/
+
+    abstract class Filter {
+        String filterName;
+        String filterType;
+        List<String> selected;
+    }
+
+    abstract class Row {
+        String name;
+        boolean selected;
+        boolean lock;
+        List<Filter> filterSelectedList;
+    }
+
+    List<Row> Rows;
 }
 

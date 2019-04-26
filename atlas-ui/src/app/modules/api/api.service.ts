@@ -29,7 +29,7 @@ export class ApiService {
     return this.socketService.$get('getUser', null);
   }
 
-  public onAuth() {
-    return this.socketService.$get('onAuth', null);
+  public onAuth(data) {
+    return this.socketService.$get('onAuth', data);
   }
 }
